@@ -15,6 +15,9 @@ int main(void)
 	return 0;
 }
 
+/*fib: computes the n member of the fibonancci series
+ n- the n member of the series
+ return- Returs the fibonancci number*/
 int fib(int n)
 {
 	int i;
