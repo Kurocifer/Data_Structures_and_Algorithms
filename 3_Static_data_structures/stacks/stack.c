@@ -4,7 +4,6 @@
 
 
 int top = -1;
-int stack[MAXSTACK];
 
 int empty(void)
 {
@@ -18,7 +17,7 @@ int push(int new)
     if(top + 1 >= MAXSTACK)
         return FULL;
     
-    stack[++item] = new;
+    stack[++top] = new;
     return OK;
 }
 

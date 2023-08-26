@@ -3,7 +3,8 @@
 
 #define OK 0
 #define FULL 1
-#define MAXSTACK 100
+
+int MAXSTACK = 0;
 
 int empty(void);
 int push(int new);
