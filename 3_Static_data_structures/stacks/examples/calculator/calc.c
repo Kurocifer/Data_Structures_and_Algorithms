@@ -104,7 +104,7 @@ int eval()
 				break;
 
 			case '-':
-				tmep = pop();
+				temp = pop();
 				push( pop() - temp );
 				break;
 
