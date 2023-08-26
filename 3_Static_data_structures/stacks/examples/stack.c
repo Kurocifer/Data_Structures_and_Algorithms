@@ -46,9 +46,11 @@ int push(Stack s, int new)
     return OK;
 }
 
-int pop(Stack s)
+item pop(Stack s)
 {
     return (s->content[s->top--]);
 }
+
+int top
 
 

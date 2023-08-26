@@ -4,7 +4,7 @@
 #define MAXSTACK 100
 #define OK 0
 
-typedef char item_type; /*item_type is to be changed to correspond to type to be stored in stack*/
+typedef int item_type; /*item_type is to be changed to correspond to type to be stored in stack*/
 typedef struct stack_type *Stack;
 
 Stack make(void);
