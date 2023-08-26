@@ -10,6 +10,7 @@ typedef struct stack_type *Stack;
 Stack make(void);
 int empty(Stack s);
 int push(Stack s, int new);
-int pop(Stack s);
+item_type pop(Stack s);
+item_type top_of_stack(Stack s)
 
 #endif
