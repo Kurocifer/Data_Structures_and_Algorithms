@@ -1,4 +1,28 @@
+#include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "../stack.h"
+
+Stack s1, s2;
+
+int icp(int it);
+int isp(int it);
+void itop();
+int eval();
+
+int main(void)
+{
+    s1 = make();
+    s2 = make();
+    int ans;
+
+    printf("Enter operation to evalute: ");
+    itop();
+    printf("Answer: %d\n", eval());
+
+    return 0;
+
+}
 
 int icp(int it)
 {
@@ -55,11 +79,10 @@ int isp(int it)
 }
 
 void itop()
-
 {
 	int temp, item;
 
-	while((item = getchar()) != '\n') {
+	while( (item = getchar()) != '\n' ) {
 		switch(item) {
 			case '^':
 			case '*':
@@ -68,17 +91,17 @@ void itop()
 			case '-':
 			case '(':
 				/* pop operator */
-				while( !empty() && isp(top_of_stk()) >= icp(item) )
-					putchar(pop());
+				while( !empty(s1) && isp(top_of_stk(s1)) >= icp(item) )
+					putchar(pop(s1));
 
 				/* push new operator onto stack */
-				push(item);
+				push(s1, item);
 				break;
 
 			case ')':
 				/* Unstack until matching '(' */
-				while( (temp = pop()) != '(' )
-					putchar( temp() );
+				while( (temp = pop(s1)) != '(' )
+					putchar( temp );
 				break;
 
 			default:
@@ -87,8 +110,8 @@ void itop()
 				break;
 		}
 	}
-	while( !empty() ) /*empty the rest of stack */
-		putchar( pop() );
+	while( !empty(s1) ) /*empty the rest of stack */
+		putchar( pop(s1) );
 }
 
 int eval()
@@ -96,37 +119,41 @@ int eval()
 	int temp, item;
 
 	while( (item = getchar()) != '\n' ) {
+        putchar(item);
 		switch(item) {
 			case '+':
 				/* watch order of operands */
-				temp = pop();
-				push( pop() - temp );
+				temp = pop(s2);
+				push( s2, (pop(s2) + temp) );
 				break;
 
 			case '-':
-				temp = pop();
-				push( pop() - temp );
+				temp = pop(s2);
+				push( s2, (pop(s2) - temp) );
 				break;
 
 			case '*':
-				temp = pop();
-				push( pop() * temp );
+				temp = pop(s2);
+				push( s2, pop(s2) * temp );
 				break;
 
 			case '/':
-				temp = pop();
-				push( pop() / temp );
+				temp = pop(s2);
+                if( !temp )
+                    exit(EXIT_FAILURE);
+				push( s2, (pop(s2) / temp) );
 				break;
 
 			case '^':
-				temp = pop();
-				push( power(pop(), temp) );
+				temp = pop(s2);
+				push( s2, (pop(s2), temp) );
 				break;
 
 			default:	/* operand */
-				push(item);
+				push(s2, item);
 				break;
 		}
 	}
-	return( pop() );	/* Answer */
+    
+	return( pop(s2) );	/* Answer */
 }
