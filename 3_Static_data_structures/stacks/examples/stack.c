@@ -51,7 +51,7 @@ item_type pop(Stack s)
     return (s->content[s->top--]);
 }
 
-item_type top_of_stack(Stack s)
+item_type top_of_stk(Stack s)
 {
     return (s->content[s->top]);
 }
