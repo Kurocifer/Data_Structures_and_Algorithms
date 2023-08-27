@@ -1,28 +1,59 @@
 #include <stdbool.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include "stack.h"
 
+#define FULL 1
+#define MAXSTACK 100
 
-int top = -1;
+struct stack_type {
+    item_type content[MAXSTACK];
+    int top;
+};
 
-int empty(void)
+void terminate(char *message)
 {
-    if(top < 0)
+    fprintf(stderr, "%s", message);
+    exit(EXIT_FAILURE);
+}
+
+Stack make(void)
+{
+    Stack s = malloc(sizeof(struct stack_type));
+
+    if(!s)
+        terminate("Error: stack could not be created\n");
+
+    s->top = -1;
+
+    return s;
+}
+
+int empty(Stack s)
+{
+    if(s->top < 0)
         return true;
 
     return false;
 }
-int push(int new)
+
+int push(Stack s, int new)
 {
-    if(top + 1 >= MAXSTACK)
+    if(s->top + 1 >= MAXSTACK)
         return FULL;
     
-    stack[++top] = new;
+    s->content[++(s->top)] = new;
     return OK;
 }
 
-int pop(void)
+item_type pop(Stack s)
 {
-    return (stack[top--]);
+    return (s->content[s->top--]);
 }
+
+item_type top_of_stk(Stack s)
+{
+    return (s->content[s->top]);
+}
+
 

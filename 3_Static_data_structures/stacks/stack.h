@@ -1,13 +1,16 @@
 #ifndef STACK_H
 #define STACK_H
 
+#define MAXSTACK 100
 #define OK 0
-#define FULL 1
 
-int MAXSTACK = 0;
+typedef int item_type; /*item_type is to be changed to correspond to type to be stored in stack*/
+typedef struct stack_type *Stack;
 
-int empty(void);
-int push(int new);
-int pop(void);
+Stack make(void);
+int empty(Stack s);
+int push(Stack s, int new);
+item_type pop(Stack s);
+item_type top_of_stk(Stack s);
 
 #endif

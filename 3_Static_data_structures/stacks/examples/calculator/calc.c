@@ -1,7 +1,8 @@
+#include <ctype.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "../stack.h"
+#include "../../stack.h"
 
 Stack s1, s2;
 
@@ -110,8 +111,10 @@ void itop()
 				break;
 		}
 	}
-	while( !empty(s1) ) /*empty the rest of stack */
+	while( !empty(s1) ) {   /*empty the rest of stack */
+		printf(" ");
 		putchar( pop(s1) );
+	}
 }
 
 int eval()
@@ -119,41 +122,46 @@ int eval()
 	int temp, item;
 
 	while( (item = getchar()) != '\n' ) {
-        putchar(item);
-		switch(item) {
-			case '+':
-				/* watch order of operands */
-				temp = pop(s2);
-				push( s2, (pop(s2) + temp) );
-				break;
+		if(isdigit(item)) {
+			switch(item) {
+				case '+':
+					/* watch order of operands */
+					temp = pop(s2);
+					putchar(temp);
+					putchar('\n');
+					push( s2, (pop(s2) + temp) );
+					break;
 
-			case '-':
-				temp = pop(s2);
-				push( s2, (pop(s2) - temp) );
-				break;
+				case '-':
+					temp = pop(s2);
+					push( s2, (pop(s2) - temp) );
+					break;
 
-			case '*':
-				temp = pop(s2);
-				push( s2, pop(s2) * temp );
-				break;
+				case '*':
+					temp = pop(s2);
+					push( s2, pop(s2) * temp );
+					break;
 
-			case '/':
-				temp = pop(s2);
-                if( !temp )
-                    exit(EXIT_FAILURE);
-				push( s2, (pop(s2) / temp) );
-				break;
+				case '/':
+					temp = pop(s2);
+					if( !temp )
+						exit(EXIT_FAILURE);
+					push( s2, (pop(s2) / temp) );
+					break;
 
-			case '^':
-				temp = pop(s2);
-				push( s2, (pop(s2), temp) );
-				break;
+				case '^':
+					temp = pop(s2);
+					push( s2, pow(pop(s2), temp) );
+					break;
 
-			default:	/* operand */
-				push(s2, item);
-				break;
+				default:	/* operand */
+					push(s2, item);
+					break;
+			}
 		}
+		
 	}
     
+	push(s2, 4);
 	return( pop(s2) );	/* Answer */
 }
