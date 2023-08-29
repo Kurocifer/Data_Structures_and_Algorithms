@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "queue.h"
@@ -12,19 +11,19 @@ struct queue_type {
 	int front;
 };
 
-void terminate(char *message)
+void qterminate(char *message)
 {
 	fprintf(stderr, "%s\n", message);
 	exit(EXIT_FAILURE);
 
 }
 
-Queue create(void)
+Queue qcreate(void)
 {	
 	Queue q = malloc(sizeof(struct queue_type));
 
 	if (!q)
-		terminate("Error: Unable to create queue.");
+		qterminate("Error: Unable to create queue.");
 	
 	q->front = q->rear = 0;
 
@@ -42,10 +41,10 @@ item_type cir_addq(Queue q, int element)
 
 item_type cir_delq(Queue q)
 {
-	if(emptyq())
+	if(qempty(q))
 		return 0; 
-	q->rear = NEXT(q->front);
-	return (queue[q->front]);
+	q->front = NEXT(q->front);
+	return (q->queue[q->front]);
 }
 
 item_type cir_empty(Queue q)
@@ -60,7 +59,7 @@ item_type queuesize(Queue q)
 	return ( ((q->front - q->rear) + MAXQUEUE) % MAXQUEUE);
 }
 
-bool emptyq(Queue q)
+bool qempty(Queue q)
 {
 	if(q->front == q->rear)
 		return true;
