@@ -1,36 +1,59 @@
-#define MAXQUEUE 100
+#include <stdlib.h>
+#include <stdio.h>
+#include "queue.h"
+/*NEXT: helps so that queue should rap arround when
+		q->rear == MAXQUEUE -1*/
 #define NEXT(x) ((x + 1) % MAXQUEUE)
-#define OK 0
-#define QUEUE_FULL -1
-#define QUEUE_EMPTY -2
 
-int queue[MAXQUEUE];
-int rear = 0, front = 0;
+struct queue_type {
+	item_type queue[MAXQUEUE];
+	int rear;
+	int front;
+};
 
-int cir_addq(int element)
+void terminate(char *message)
 {
-	if( NEXT(rear) == front )
-		return (OUT_OF_SPACE);
-	rear = NEXT(rear);
-	queue[rear] = element;
+	fprintf(stderr, "%s\n", message);
+	exit(EXIT_FAILURE);
+
+}
+
+Queue create(void)
+{	
+	Queue q = malloc(sizeof(struct queue_type));
+
+	if (!q)
+		terminate("Error: Unable to create queue.");
+	
+	q->front = q->rear = 0;
+
+	return q;
+}
+
+int cir_addq(Queue q, int element)
+{
+	if( NEXT(q->rear) == q->front )
+		return (QUEUE_FULL);
+	q->rear = NEXT(q->rear);
+	q->queue[q->rear] = element;
 	return (OK);
 }
 
-int cir_delq()
+int cir_delq(Queue q)
 {
-	rear = NEXT(front);
-	return (queue[front]);
+	q->rear = NEXT(q->front);
+	return (queue[q->front]);
 }
 
-int cir_empty()
+int cir_empty(Queue q)
 {
-	if( front == rear )
+	if( q->front == q->rear )
 		return(QUEUE_EMPTY);
 	return (OK);
 }
 
-int queuesize()
+int queuesize(Queue q)
 {
-	return ( ((front - rear) + MAXQUEUE) % MAXQUEUE);
+	return ( ((q->front - q->rear) + MAXQUEUE) % MAXQUEUE);
 }
 
