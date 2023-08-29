@@ -1,25 +1,28 @@
-#define OK 0
-#define QUEUE_EMPTY -1 
-#define OUT_OF_SPACE -2
 #define MAXQUEUE 100
+#define NEXT(x) ((x + 1) % MAXQUEUE)
+#define OK 0
+#define QUEUE_FULL -1
+#define QUEUE_EMPTY -2
 
 int queue[MAXQUEUE];
-int rear = -1, front = -1;
+int rear = 0, front = 0;
 
-int addqueue(int element)
+int cir_addq(int element)
 {
-	if( (rear + 1) >= MAXQUEUE )
+	if( NEXT(rear) == front )
 		return (OUT_OF_SPACE);
-	queue[++rear] = element;
+	rear = NEXT(rear);
+	queue[rear] = element;
 	return (OK);
 }
 
-int delqueue()
+int cir_delq()
 {
-	return ( queue[++front] );
+	rear = NEXT(front);
+	return (queue[front]);
 }
 
-int q_empty()
+int cir_empty()
 {
 	if( front == rear )
 		return(QUEUE_EMPTY);
@@ -28,6 +31,6 @@ int q_empty()
 
 int queuesize()
 {
-	return ( front - rear );
+	return ( ((front - rear) + MAXQUEUE) % MAXQUEUE);
 }
 
