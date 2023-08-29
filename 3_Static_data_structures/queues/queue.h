@@ -7,7 +7,7 @@
 #define QUEUE_EMPTY -2
 
 typedef struct queue_type *Queue;
-typedef int item_type;
+typedef int item_type;  /*item_type is to be changed to correspond to type to be stored in queue*/
 
 /* functions */
 Queue create(void);
