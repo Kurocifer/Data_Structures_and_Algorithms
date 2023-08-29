@@ -30,7 +30,7 @@ Queue create(void)
 	return q;
 }
 
-int cir_addq(Queue q, int element)
+item_type cir_addq(Queue q, int element)
 {
 	if( NEXT(q->rear) == q->front )
 		return (QUEUE_FULL);
@@ -39,20 +39,20 @@ int cir_addq(Queue q, int element)
 	return (OK);
 }
 
-int cir_delq(Queue q)
+item_type cir_delq(Queue q)
 {
 	q->rear = NEXT(q->front);
 	return (queue[q->front]);
 }
 
-int cir_empty(Queue q)
+item_type cir_empty(Queue q)
 {
 	if( q->front == q->rear )
 		return(QUEUE_EMPTY);
 	return (OK);
 }
 
-int queuesize(Queue q)
+item_type queuesize(Queue q)
 {
 	return ( ((q->front - q->rear) + MAXQUEUE) % MAXQUEUE);
 }
