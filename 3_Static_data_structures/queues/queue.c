@@ -42,7 +42,7 @@ item_type cir_addq(Queue q, int element)
 
 item_type cir_delq(Queue q)
 {
-	if(empty())
+	if(emptyq())
 		return 0; 
 	q->rear = NEXT(q->front);
 	return (queue[q->front]);
@@ -60,7 +60,7 @@ item_type queuesize(Queue q)
 	return ( ((q->front - q->rear) + MAXQUEUE) % MAXQUEUE);
 }
 
-bool empty(Queue q)
+bool emptyq(Queue q)
 {
 	if(q->front == q->rear)
 		return true;
