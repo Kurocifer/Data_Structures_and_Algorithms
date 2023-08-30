@@ -6,7 +6,7 @@
  * n- The number whose factorial is computed.
  * Return- Returns the answer.
 */
-long fact(long n);
+long fact_recur(long n);
 
 int main(void)
 {
@@ -15,12 +15,12 @@ int main(void)
     printf("Enter number to compute factorioal: ");
     scanf("%lu", &num);
 
-    printf("%lu! = %lu\n", num, fact(num));
+    printf("%lu! = %lu\n", num, fact_recur(num));
     return 0;
 
 }
 
-long fact(long n)
+long fact_recur(long n)
 {
     if(n < 0)
         return -1; /* check for bad arguemen*/
