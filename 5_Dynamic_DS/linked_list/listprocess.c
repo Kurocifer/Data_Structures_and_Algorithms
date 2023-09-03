@@ -17,3 +17,17 @@ struct node *reverse(struct node *headlist)
     return prev;    /* new head of list */
 }
 
+
+struct node *lconcate( struct node *list1, struct node *list2 )
+{
+    struct node *p;
+
+    /* Locate end of list */
+    for(p = list1; p->next != NULL; p = p->next)
+        ;
+
+    /* Concatenate */
+    p->next = list2;
+    
+    return list1;
+}
