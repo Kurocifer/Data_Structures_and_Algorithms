@@ -27,6 +27,8 @@ void eightqueens(void)
 {
     int i, j;
 
+    printf("\n_______8 QUEENS PUZZLE________\n");
+
     /* innitializing all arrays */
 
     for(i = 0; i < 8; i++) {
@@ -106,7 +108,7 @@ void disp_board(void)
     putchar('\n');
     for(i = 0; i < 8; i++) {
         for(j = 0; j < 8; j++)
-            putchar( board[i][j] );
+            printf("|%c|", board[i][j]);
         
         putchar('\n');
     }
