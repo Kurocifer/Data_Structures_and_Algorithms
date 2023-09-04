@@ -1,6 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define OK 0
+#define ERROR 1
+#define LCHILD -1
+#define RCHILD -2
+
 struct bt_node {
     int data;
     struct bt_node *lchild;    /* left child node */
@@ -53,7 +58,7 @@ void bt_insertion(int new)
     /* q now points to the parent of the new node */
 
     p = get_new_node();
-    p->data = new;
+    p->data = new;lchild
 
     if(new < q->data)
         q->lchild = p;
@@ -118,7 +123,7 @@ int bt_delete(struct bt_node *pred, struct bt_node *node,
 
 /* BINARY TREE TRAVERSAL TECHNIQUES */
 
-/* inorder traversal */
+/* inorder traversal */lchild
 void inorder(struct bt_node *node)
 {
     if(node != NULL) {
