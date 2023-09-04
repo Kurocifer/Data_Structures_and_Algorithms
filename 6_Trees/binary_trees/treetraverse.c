@@ -4,6 +4,8 @@ struct bt_node {
     struct bt_node *rchild;    /* right child node */   
 };
 
+int print_node(int data)
+
 /* inorder traversal */
 void inorder(struct bt_node *node)
 {
@@ -14,7 +16,11 @@ void inorder(struct bt_node *node)
     }
 }
 
-/* preorder traversal */
 void preorder(struct bt_node *node)
+{
+    if(node != NULL) {
+        print_node(node->data);
+        preorder(node->lchild);
+        print_node(node->rchild);
     }
 }
