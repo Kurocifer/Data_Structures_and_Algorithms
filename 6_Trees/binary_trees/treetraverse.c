@@ -24,3 +24,12 @@ void preorder(struct bt_node *node)
         print_node(node->rchild);
     }
 }
+
+void postorder(struct bt_node *node)
+{
+    if(node != NULL) {
+        preorder(node->lchild);
+        preorder(node->rchild);
+        print_node(node->date);
+    }
+}
