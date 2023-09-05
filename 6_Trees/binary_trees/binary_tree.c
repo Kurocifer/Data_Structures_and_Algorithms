@@ -14,9 +14,6 @@ struct bt_node {
 
 struct bt_node *root = NULL;
 
-int print_node(int data);
-
-
 
 
 /* BINARY TREE INSERTION FUNCTIONS */
@@ -58,7 +55,7 @@ void bt_insertion(int new)
     /* q now points to the parent of the new node */
 
     p = get_new_node();
-    p->data = new;lchild
+    p->data = new;
 
     if(new < q->data)
         q->lchild = p;
@@ -70,7 +67,8 @@ void bt_insertion(int new)
 /* END OF BINARY TREE INSERTION FUNCTIONS */
 
 /* BINARY TREE DELETION */
-
+ 
+ /*
 int bt_delete(struct bt_node *pred, struct bt_node *node,
 		int stat)
 {
@@ -86,7 +84,7 @@ int bt_delete(struct bt_node *pred, struct bt_node *node,
 		return (bt_insert2(child));
 	}
 
-	if(node->lchild == NULL && node->rchild == NULL)	/* 1 */
+	if(node->lchild == NULL && node->rchild == NULL)
 		child = NULL;
 	else if(node->lchild == NULL)
 		child = node->rchild;
@@ -110,7 +108,6 @@ int bt_delete(struct bt_node *pred, struct bt_node *node,
 		return (bt_insert2(node->lchild));
 	}
 
-	/* Adjust predecessor's pointers */
 	if(stat == LCHILD )
 		pred->lchild = child;
 	else
@@ -119,16 +116,17 @@ int bt_delete(struct bt_node *pred, struct bt_node *node,
 	
 	return OK;
 }
+*/
 /* END OF BINARY TREE DELETION FUNCTIONS
 
 /* BINARY TREE TRAVERSAL TECHNIQUES */
 
-/* inorder traversal */lchild
+/* inorder traversal */
 void inorder(struct bt_node *node)
 {
     if(node != NULL) {
         inorder(node->lchild);
-        print_node(node->data); /* The visit*/
+        printf("%d", node->data); /* The visit*/
         inorder(node->rchild);
     }
 }
@@ -137,9 +135,9 @@ void inorder(struct bt_node *node)
 void preorder(struct bt_node *node)
 {
     if(node != NULL) {
-        print_node(node->data);
+        printf("%d", node->data);
         preorder(node->lchild);
-        print_node(node->rchild);
+        preorder(node->rchild);
     }
 }
 
@@ -149,8 +147,22 @@ void postorder(struct bt_node *node)
     if(node != NULL) {
         preorder(node->lchild);
         preorder(node->rchild);
-        print_node(node->date);
+        printf("%d", node->data);
     }
 }
 
 /* END OF BINARY TREES TRAVERSAL TECHNIQUES */
+
+int main(void) {
+    int i;
+
+    for(i = 0; i < 10; i++) {
+        bt_insertion(i);
+    }
+
+    inorder(root);
+    printf("\n");
+    preorder(root);
+
+    return 0;
+}
