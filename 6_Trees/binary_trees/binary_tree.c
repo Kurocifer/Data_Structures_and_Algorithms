@@ -68,7 +68,7 @@ void bt_insertion(int new)
 
 /* BINARY TREE DELETION */
  
- /*
+ 
 int bt_delete(struct bt_node *pred, struct bt_node *node,
 		int stat)
 {
@@ -116,7 +116,6 @@ int bt_delete(struct bt_node *pred, struct bt_node *node,
 	
 	return OK;
 }
-*/
 /* END OF BINARY TREE DELETION FUNCTIONS
 
 /* BINARY TREE TRAVERSAL TECHNIQUES */
@@ -152,6 +151,22 @@ void postorder(struct bt_node *node)
 }
 
 /* END OF BINARY TREES TRAVERSAL TECHNIQUES */
+
+/* bt_copy: makes a copy of a binary tree */
+struct bt_node *bt_copy(struct bt_node *treeptr)
+{
+    struct bt_node *new;
+
+    if(treeptr == NULL)
+        return NULL;
+    
+    new = get_new_node();
+    new->data = treeptr->data;
+    new->lchild = bt_tree(treeptr->lchild);
+    new->rchild = bt_tree(treeptr->rchild);
+
+    return new;
+}
 
 int main(void) {
     int i;
