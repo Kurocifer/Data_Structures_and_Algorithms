@@ -10,7 +10,7 @@
 #define LIGHT -1
 #define HEAVY 1
 
-void eightcoins(int *coin, int *bad, int *stat);
+void eightcoins(const int *coin, int *bad, int *stat);
 void initialize_number(void);
 int bad_coin_index(void);
 
@@ -43,14 +43,14 @@ int main(void) {
 
 }
 
-void eightcoins(int *coin, int *bad, int *stat)
+void eightcoins(const int *coin, int *bad, int *stat)
 {
     int s1 = 0, s2 = 0;
     int s3, s4;
     int i;
 
-    for(i = 0; i < 8; i++) {
-        if (i <= 3)
+    for(i = 0; i < 6; i++) {
+        if (i <= 2)
             s1 += coin[i];
         else
             s2 += coin[i];
@@ -166,6 +166,6 @@ void initialize_number(void)
 }
 
 int bad_coin_index(void)
-{
-    return ( rand() % 8 );
+{   
+    return (rand() % 8);
 }
