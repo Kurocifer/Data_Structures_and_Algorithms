@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdbool.h>
 
 #define VISITED 1
+#define NOT_VISITED 0
 #define MAX_NODES 100
 
 struct adj_node {
@@ -60,3 +62,23 @@ void bfs(void)
     }
 }
 
+/**
+ * conn_grapsh: checks if the grapsh is connected
+*/
+bool conn_graph(void)
+{
+    int i;
+
+    /* initialize the tag field */
+    for(i = 0; i < MAX_NODES; i++) 
+        alist[i].tag = NOT_VISITED;
+
+    dfs(0);
+
+    for(i = 0; i < MAX_NODES; i++){
+        if(alist[i].tag != VISITED)
+            return false;
+    }
+
+    return true;
+}
