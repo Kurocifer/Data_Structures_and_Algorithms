@@ -20,3 +20,5 @@ int seq_search(int data[], int size, int key)
     
     return i;
 }
+
+/* time complexitry O(n/2)*/
