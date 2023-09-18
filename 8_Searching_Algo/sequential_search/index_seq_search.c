@@ -1,3 +1,4 @@
+/* index sequential search algo */
 #include "seq_search.h"
 
 struct index {
