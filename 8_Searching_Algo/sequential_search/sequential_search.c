@@ -12,4 +12,4 @@ int seq_search(int data[], int size, int key)
     return i;
 }
 
-/* Average time complexitry O(n/2)*/
+/* Average time complexitry O(n/2) where n is the size of array */

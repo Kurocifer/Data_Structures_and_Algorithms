@@ -32,3 +32,5 @@ int index_search(int key, Index idx[], int idx_size,
     
     return key_index;
 }
+
+/* Time complexity: O(k/2 + (n/k)/2. Where k is the size of index array and n is the size of the main array */
