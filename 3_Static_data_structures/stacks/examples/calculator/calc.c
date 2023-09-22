@@ -84,6 +84,7 @@ void itop()
 	int temp, item;
 
 	while( (item = getchar()) != '\n' ) {
+		//printf("%c\n", item);
 		switch(item) {
 			case '^':
 			case '*':
@@ -112,7 +113,6 @@ void itop()
 		}
 	}
 	while( !empty(s1) ) {   /*empty the rest of stack */
-		printf(" ");
 		putchar( pop(s1) );
 	}
 }
@@ -122,7 +122,8 @@ int eval()
 	int temp, item;
 
 	while( (item = getchar()) != '\n' ) {
-		if(isdigit(item)) {
+		printf("%d\n", item);
+		if(1) {
 			switch(item) {
 				case '+':
 					/* watch order of operands */
@@ -135,7 +136,8 @@ int eval()
 				case '-':
 					temp = pop(s2);
 					push( s2, (pop(s2) - temp) );
-					break;
+					break;putchar(temp);
+					putchar('\n');
 
 				case '*':
 					temp = pop(s2);
@@ -155,13 +157,12 @@ int eval()
 					break;
 
 				default:	/* operand */
-					push(s2, item);
+					push(s2, item - '0');
 					break;
 			}
 		}
 		
 	}
     
-	push(s2, 4);
 	return( pop(s2) );	/* Answer */
 }
