@@ -6,6 +6,7 @@
 
 #define OPERAND 0
 #define OPERATOR 1
+#define END_ '?'
 
 Stack s1, s2;
 int type_to_read, temps[20];
@@ -14,7 +15,7 @@ int type_to_read, temps[20];
 int icp(int it);
 int isp(int it);
 int itop();
-//int eval();
+int eval();
 int nextinput();
 
 int main(void)
@@ -25,11 +26,12 @@ int main(void)
 
     printf("Enter operation to evalute: ");
     ans = itop();
+	temps[ans] = END_;
 	
 	for(int i = 0; i < ans; i++)
 		printf("%d ", temps[i]);
 	printf("\n");
-    //printf("Answer: %d\n", eval());
+    printf("Answer: %d\n", eval());
 
 
     return 0;
@@ -39,12 +41,15 @@ int main(void)
 int nextinput()
 {
 	int operand;
-	char operator;
+	char operator, brace;
 
 	if(type_to_read == OPERAND) {
-		scanf("%d ", &operand);
-		type_to_read = OPERATOR;
-		return operand;
+		if(scanf("%d ", &operand) == 1) {
+			type_to_read = OPERATOR;
+			return operand;
+		}
+		brace = getchar();
+		return brace;
 	}
 
 	operator = getchar();
@@ -121,7 +126,7 @@ int itop()
 			case '(':
 				/* pop operator */
 				while( !empty(s1) && isp(top_of_stk(s1)) >= icp(item) )
-					temps[i] = temp;
+					temps[i++] = pop(s1);
 
 				/* push new operator onto stack */
 				push(s1, item);
@@ -130,8 +135,7 @@ int itop()
 			case ')':
 				/* Unstack until matching '(' */
 				while( (temp = pop(s1)) != '(' )
-					temps[i] = temp;
-					i++;
+					temps[i++] = temp;
 				break;
 
 			default:
@@ -148,56 +152,46 @@ int itop()
 	return i;
 }
 
-/*
 int eval()
 {
-	int temp, item;
+	int temp, item, i = 0;
 
-	while( (item = getchar()) != '\n' ) {
-		printf("%d\n", item);
-		if(1) {
-			switch(item) {
-				case '+':
-					/* watch order of operands */
-					/*
-					temp = pop(s2);
-					putchar(temp);
-					putchar('\n');
-					push( s2, (pop(s2) + temp) );
-					break;
+	while( (item = temps[i++]) != END_ ) {
+		switch(item) {
+			case '+':
+				/* watch order of operands */
+				temp = pop(s2);
+				putchar(temp);
+				push( s2, (pop(s2) + temp) );
+				break;
 
-				case '-':
-					temp = pop(s2);
-					push( s2, (pop(s2) - temp) );
-					break;putchar(temp);
-					putchar('\n');
+			case '-':
+				temp = pop(s2);
+				push( s2, (pop(s2) - temp) );
+				break;putchar(temp);
 
-				case '*':
-					temp = pop(s2);
-					push( s2, pop(s2) * temp );
-					break;
+			case '*':
+				temp = pop(s2);
+				push( s2, pop(s2) * temp );
+				break;
 
-				case '/':
-					temp = pop(s2);
-					if( !temp )
-						sprintf(*temps, "%d", pop(s1));exit(EXIT_FAILURE);
-					push( s2, (pop(s2) / temp) );
-					break;
+			case '/':
+				temp = pop(s2);
+				if(temp == 0)
+				push( s2, (pop(s2) / temp) );
+				break;
 
-				case '^':
-					temp = pop(s2);
-					push( s2, pow(pop(s2), temp) );
-					break;
+			case '^':
+				temp = pop(s2);
+				push( s2, pow(pop(s2), temp) );
+				break;
 
-				default:
-					push(s2, item - '0');
-					break;
-			}
+			default:
+				push(s2, item);
+				break;
 		}
 		
-	} */
-     /*
-	return( pop(s2) );	/* Answer
+	}
+	return( pop(s2) );	/* Answer */
 }
 
-*/
