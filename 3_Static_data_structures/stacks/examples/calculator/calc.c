@@ -4,12 +4,18 @@
 #include <stdlib.h>
 #include "../../stack.h"
 
+#define OPERAND 0
+#define OPERATOR 1
+
 Stack s1, s2;
+int type_to_read, temps[20];
+
 
 int icp(int it);
 int isp(int it);
-void itop();
-int eval();
+int itop();
+//int eval();
+int nextinput();
 
 int main(void)
 {
@@ -18,11 +24,31 @@ int main(void)
     int ans;
 
     printf("Enter operation to evalute: ");
-    itop();
-    printf("Answer: %d\n", eval());
+    ans = itop();
+	
+	for(int i = 0; i < ans; i++)
+		printf("%d ", temps[i]);
+    //printf("Answer: %d\n", eval());
+
 
     return 0;
 
+}
+
+int nextinput()
+{
+	int operand;
+	char operator;
+
+	if(type_to_read == operand) {
+		scanf(" %d ", &operand);
+		type_to_read = OPERATOR;
+		return operand;
+	}
+
+	operator = getchar();
+	type_to_read = OPERAND;
+	return operator;
 }
 
 int icp(int it)
@@ -79,11 +105,11 @@ int isp(int it)
     }
 }
 
-void itop()
+int itop()
 {
-	int temp, item;
+	int temp, item, i = 0;
 
-	while( (item = getchar()) != '\n' ) {
+	while( (item = nextinput()) != '=' ) {
 		//printf("%c\n", item);
 		switch(item) {
 			case '^':
@@ -94,7 +120,7 @@ void itop()
 			case '(':
 				/* pop operator */
 				while( !empty(s1) && isp(top_of_stk(s1)) >= icp(item) )
-					putchar(pop(s1));
+					temps[i] = temp;
 
 				/* push new operator onto stack */
 				push(s1, item);
@@ -103,20 +129,24 @@ void itop()
 			case ')':
 				/* Unstack until matching '(' */
 				while( (temp = pop(s1)) != '(' )
-					putchar( temp );
+					temps[i] = temp;
 				break;
 
 			default:
-				/* operand */
-				putchar( item );
+				// operandsprintf(*temps, "%d", pop(s1));
+				temps[i] = temp;
 				break;
 		}
+		i++;
 	}
 	while( !empty(s1) ) {   /*empty the rest of stack */
-		putchar( pop(s1) );
+		temps[i] = pop(s1);
+		i++;
 	}
+	return i;
 }
 
+/*
 int eval()
 {
 	int temp, item;
@@ -127,6 +157,7 @@ int eval()
 			switch(item) {
 				case '+':
 					/* watch order of operands */
+					/*
 					temp = pop(s2);
 					putchar(temp);
 					putchar('\n');
@@ -147,7 +178,7 @@ int eval()
 				case '/':
 					temp = pop(s2);
 					if( !temp )
-						exit(EXIT_FAILURE);
+						sprintf(*temps, "%d", pop(s1));exit(EXIT_FAILURE);
 					push( s2, (pop(s2) / temp) );
 					break;
 
@@ -156,13 +187,15 @@ int eval()
 					push( s2, pow(pop(s2), temp) );
 					break;
 
-				default:	/* operand */
+				default:
 					push(s2, item - '0');
 					break;
 			}
 		}
 		
-	}
-    
-	return( pop(s2) );	/* Answer */
+	} */
+     /*
+	return( pop(s2) );	/* Answer
 }
+
+*/
