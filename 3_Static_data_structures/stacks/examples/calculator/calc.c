@@ -28,6 +28,7 @@ int main(void)
 	
 	for(int i = 0; i < ans; i++)
 		printf("%d ", temps[i]);
+	printf("\n");
     //printf("Answer: %d\n", eval());
 
 
@@ -40,8 +41,8 @@ int nextinput()
 	int operand;
 	char operator;
 
-	if(type_to_read == operand) {
-		scanf(" %d ", &operand);
+	if(type_to_read == OPERAND) {
+		scanf("%d ", &operand);
 		type_to_read = OPERATOR;
 		return operand;
 	}
@@ -130,14 +131,15 @@ int itop()
 				/* Unstack until matching '(' */
 				while( (temp = pop(s1)) != '(' )
 					temps[i] = temp;
+					i++;
 				break;
 
 			default:
 				// operandsprintf(*temps, "%d", pop(s1));
-				temps[i] = temp;
+				temps[i] = item;
+				i++;
 				break;
 		}
-		i++;
 	}
 	while( !empty(s1) ) {   /*empty the rest of stack */
 		temps[i] = pop(s1);
