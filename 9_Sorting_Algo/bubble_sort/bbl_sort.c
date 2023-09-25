@@ -21,3 +21,5 @@ void bbl_sort(int data[], int no_elems)
         }
     }while(flag > 0);
 }
+
+/* Average time complexity: O(n^2), where n is no_elems */
