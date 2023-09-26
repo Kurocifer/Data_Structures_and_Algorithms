@@ -7,7 +7,7 @@ int main(void)
 int a[10] = {21, 8, 2, 34, 5, 1, 13, 0, 3, 1};
     int i;
 
-    printf("\n### TEST FOR INSERTION SORT ###\n\n");
+    printf("\n### TEST FOR QUICK SORT ###\n\n");
     printf("Unsorted array: ");
     for(i = 0; i < 10; i++)
         printf("%d ", a[i]);
