@@ -41,9 +41,7 @@ item_type cir_addq(Queue q, int element)
 }
 
 item_type cir_delq(Queue q)
-{
-	if(qempty(q))
-		return 0; 
+{ 
 	q->front = NEXT(q->front);
 	return (q->queue[q->front]);
 }
