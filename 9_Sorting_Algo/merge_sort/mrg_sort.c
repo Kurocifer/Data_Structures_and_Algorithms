@@ -76,3 +76,5 @@ void mrg_sort(int data[], int size)
         len *= 2;
     }
 }
+
+/* Overall time complexity: O(nlog2 n), where n is the size of the array */
