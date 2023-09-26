@@ -1,5 +1,5 @@
-#ifndef BBL_SORT_H
-#define BBL_SORT_H
+#ifndef INS_SORT_H
+#define INS_SORT_H
 
 /**
  * bbl_sort: Sorts an array in ascending order, using insertion sort algo.
