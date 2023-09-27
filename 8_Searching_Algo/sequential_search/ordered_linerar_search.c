@@ -1,6 +1,6 @@
 /* ordered linear search. An improvement to the sequential search algo */
+#include "seq_search.h"
 
-#define NOT_FOUND -2
 
 /* The array searched should be sorted */
 int seq_search2(int data[], int size, int key)

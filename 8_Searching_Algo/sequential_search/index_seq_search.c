@@ -1,6 +1,8 @@
 /* index sequential search algo */
 #include "seq_search.h"
 
+#define NOT_FOUND -2
+
 struct index {
     int val;    /* The key value each element represent */
     int slot;   /* The index that points into the main table */
@@ -25,7 +27,7 @@ int index_search(int key, Index idx[], int idx_size,
         size = idx[i + 1].slot - idx[i].slot;
     
     /* scan data table */
-    key_index = seq_search2(data[idx[i].slot], size; key);
+    key_index = seq_search2(data[idx[i].slot], size, key);
 
     if(key_index >= 0)
         key_index += idx[i].slot;
