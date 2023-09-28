@@ -13,7 +13,7 @@ void report(char *header, int key_index, double time_used);
 
 int main(void)
 {
-    int a[10] = {1, 3, 5, 6, 8, 10, 13, 16, 20, 25};
+    int a[10] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34};
     int key_index, i;
     clock_t start, end;
     double cpu_time_used;
@@ -22,7 +22,7 @@ int main(void)
         for(i = 0; i < 10; i++)
             printf("%d ", a[i]);
     
-    printf("\nsearching for 4...");
+    printf("\nsearching for 7...");
 
     /* Test for seqeuntial search */
     start = clock();
@@ -34,7 +34,7 @@ int main(void)
     start = clock();
     key_index = seq_search2(a, 10, 4);
     end = clock();
-    report("##### ORDERED LIST SEARCH #####", key_index, ((double) (end - start)));
+    report("##### ORDERED LINEAR SEARCH #####", key_index, ((double) (end - start)));
 
     printf("\n");
     return 0;

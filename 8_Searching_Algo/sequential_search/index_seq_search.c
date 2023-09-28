@@ -1,8 +1,6 @@
 /* index sequential search algo */
 #include "seq_search.h"
 
-#define NOT_FOUND -2
-
 struct index {
     int val;    /* The key value each element represent */
     int slot;   /* The index that points into the main table */

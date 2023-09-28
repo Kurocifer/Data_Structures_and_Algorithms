@@ -3,7 +3,8 @@
 
 #define NOT_FOUND -2
 
-typedef struct index Index;
+//typedef struct index Index;
+
 /**
  * seq_search: search a table of records for a particular key.
  * 
@@ -38,7 +39,7 @@ int seq_search2(int data[], int size, int key);
  * Return- If it findS the key it returns it's index in the data array
  *         else if not returns the value NOT_FOUND which is less than 0.
 */
-int index_search(int key, Index idx[], int idx_size, 
-                    int data[], int data_size);
+//int index_search(int key, Index idx[], int idx_size, 
+ //                   int data[], int data_size);
 
 #endif

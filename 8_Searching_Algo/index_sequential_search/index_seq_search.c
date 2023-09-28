@@ -1,4 +1,5 @@
 /* index sequential search algo */
+/* HAS NOT YET BEEN TESTED */
 #include "index_seq_search.h"
 
 #define NOT_FOUND -2
