@@ -10,10 +10,8 @@ struct customer {
     struct customer *next;        /* Pointer to the next structure */
 };
 
-struct customer *headd;
-struct customer *tail;
-
-head = tail = NULL;
+struct customer *head = NULL;
+struct customer *tail = NULL;
 
 int add_customer_q(int time_arrived)
 {
@@ -29,7 +27,7 @@ int add_customer_q(int time_arrived)
 
     if(tail == NULL) {   /* First customer */
         tail = new;
-        headd = tail;
+        head = tail;
     }
     else {
         tail->next = new;
