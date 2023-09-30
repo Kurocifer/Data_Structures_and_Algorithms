@@ -1,5 +1,6 @@
 /* routines controlling the customer's queue */
 #include <stdlib.h>
+#include <stdio.h>
 #include "customer_queue.h"
 
 struct customer {
@@ -18,14 +19,22 @@ int duration()
 
     p = (float) rand() / 3276.0;
 
-    if(p <= 0.30)                       /* 30% chance-type 1 */
+    if(p <= 0.30) {
+        printf("\nReturning 6\n");
         return 6;
-    else if(p > 0.30 &&  p <= 0.80)     /*50% chance-type 2 */
+    }                      /* 30% chance-type 1 */
+    else if(p > 0.30 &&  p <= 0.80) {
+        printf("\nReturning 9\n");
         return 9;
-    else if(p > 0.80 && p <= .95)       /* 15% chance-type 3 */
-        return 11;
-    else                                /* 5% chance-type 4 */
+    }    /* 50% chance-type 2 */
+    else if(p > 0.80 && p <= .95) {
+    printf("\nReturning 11\n");
+    return 11;
+    }      /* 15% chance-type */
+    else   {
+        printf("\nReturning 16\n");
         return 16;
+    }                             /* 5% chance-type */
 }
 
 int add_customer_q(int time_arrived)

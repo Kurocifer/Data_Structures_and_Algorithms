@@ -3,6 +3,6 @@
 
 int main(void)
 {
-    simulate(10, 20, 5);
+    simulate(40, 5, 20);
     return 0;
 }
