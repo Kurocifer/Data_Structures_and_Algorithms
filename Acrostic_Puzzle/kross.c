@@ -64,17 +64,13 @@ int main(int argc, char *argv[])
     }
 
     readpuz(fp);
-    /*
+
     if(solve(0, -1) == SOLVED)
         puz_print();
     else
         printf("No Solution!!\n");
-    */
-    printf("test 1: passed succesfully!\n");
-
-    puz_print();
-    printf("test 2: Passed succesfully1\n");
     
+    fclose(fp);
     return 0;
 }
 
@@ -115,7 +111,7 @@ void readpuz(FILE *fp)
 
         for(i = 0; i < width; i++) {
             if(buffer[i] == BLANK)
-                puzzle[length][i] = BLANK;
+                puzzle[length][i] = '\0';
 
             else if(buffer[i] == PADCHAR)
                 puzzle[length][i] = buffer[i];
@@ -147,6 +143,9 @@ void readpuz(FILE *fp)
     }
 }
 
+/**
+ *  puz_pritn: Display solve puzzle 
+*/
 void puz_print(void)
 {
     int i, j;
@@ -155,6 +154,203 @@ void puz_print(void)
         for(j = 0; j < width; j++)
             putchar(puzzle[i][j]);
         
-        printf("\n");
+        putchar('\n');
     }
 }
+
+/**
+ * solve: fuction that searches for a solution.
+*/
+
+static int prev = -1;
+
+int solve(int length, int width)
+{
+    int l, w, i, len, temp, type;
+    char old[WORDLEN - MINWORD + 1];
+
+    w = width;
+    l= length;
+    len = next(&l, &w, &type);
+    if(len == 0)
+        return SOLVED;
+    
+    for(i = 0; i < MAXWORD && WORD(len, i)[0] != '\0'; i++)
+    {
+        if(FLAG(len, i) == FREE 
+          && itfits(l, w, WORD(len, i), type)) {
+            FLAG(len, i) == USED;
+            enter(old, l, w, WORD(len, i), type);
+            prev = type;
+            if(solve(l, w) == SOLVED)
+                return SOLVED;
+            
+            restore(old, l, w, type);
+            FLAG(len, i) == FREE;
+          }
+    }
+
+    return FAIL;
+}
+
+
+/**
+ * next: Locate the next slot to fill.
+*/
+int next(int *len, int *wht, int *t)
+{
+    int l, w, temp;
+
+    l = *len;
+    w = *wht;
+
+    /**
+     * check current position for actoss: down would
+     * have been done already.
+    */
+   if(w != -1 && ((w - 1) < 0 || puzzle[1][w - 1] == '\0') 
+       && puzzle[1][w] && (w + 1) < width && puzzle[1][w + 1]) {
+        /* Across! */
+        *t = ACROSS;
+
+        /* Necessary evil */
+        *wht = w + 1;
+
+        temp = 0;
+        while(puzzle[1][w] != '\0' && w < width) {
+            w++;
+            temp++;
+        }
+
+        return(temp);
+
+    }
+
+    else if(prev == DOWN || w == -1)
+        w++;
+    
+    /* check for next possible postion */
+    for(; l < length; l++) {
+        for(; w < width; w++) {
+            if((( l - 1) < 0 || puzzle[l - 1][w] == '\0') 
+               && puzzle[l][w] != '\0' && (l + 1) < length
+               && puzzle[l + 1][w] != '\0') {
+
+                    /* Down */
+                    *t = DOWN;
+                    prev = DOWN;
+                    *wht = w;
+                    *len = l;
+                    temp = 0;
+                    while(puzzle[l][w] != '\0' && l < length) {
+                        l++;
+                        temp++;
+                    }
+                    
+                    return temp;
+               }
+
+            if(((w - 1) < 0 || puzzle[l][w - 1] == '\0')
+                && puzzle[l][w] && (w + 1) < width
+                && puzzle[l][w + 1]) {
+                    /* Across */
+                    *t = ACROSS;
+                    prev = ACROSS;
+                    *len = 1;
+                    *wht = w + 1;
+
+                    temp = 0;
+                    if(w == -1)
+                        w = 0;
+                    
+                    while(puzzle[l][w] != '\0' &&  w < width) {
+                        w++;
+                        temp++;
+                    }
+                    
+                    return temp;
+                }
+        }
+        w = 0;
+    }
+    /* puzzle completed */
+    return 0;
+}
+
+/**
+ * itfits: Determines if a word fits into a given slot
+*/
+int itfits(int l, int w, char *word, int t)
+{
+    char *cp;
+
+    if(t == ACROSS && w != -1)
+        w--;
+
+    cp = word;
+
+    while(*cp) {
+        if(*cp != puzzle[l][w] && puzzle[l][w] != PADCHAR)
+            return 0;
+        
+        if(t == ACROSS)
+            w++;
+        else
+            l++;
+        cp++;
+    }
+
+    return 1;
+}
+
+/**
+ * Enter: Enter a word into the puzzle
+*/
+void enter(char *old, int l, int w, char *word, int t)
+{
+    char *cp;
+
+    if(t == ACROSS)
+        w--;
+
+    cp = word;
+
+    while(*cp) {
+        *old++ = puzzle[l][w];
+        puzzle[l][w] = *cp;
+
+        if(t == ACROSS)
+            w++;
+        
+        else
+            l++;
+        
+        cp++;
+    }
+
+    *old = '\0';
+}
+
+/**
+ * restore: Restore puzzle to its previous state
+*/
+void restore(char *old, int l, int w, int t)
+{
+    char *cp;
+
+    if(t == ACROSS)
+        w--;
+    
+    cp = old;
+    
+    while(*cp) {
+        puzzle[l][w] = *cp;
+        if(t == ACROSS)
+            w++;
+        else
+            l++;
+
+        cp++;
+    }
+}
+
