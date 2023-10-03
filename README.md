@@ -7,6 +7,8 @@ This repository contains my learning files for data structures and algorithms im
 - [Introduction](#introduction)
 - [Data Structures](#data-structures)
 - [Algorithms](#algorithms)
+- [Acrostic Puzzle](#acrostic-puzzle)
+- [Simulation Example](#simulation-example)
 
 ## Introduction
 
@@ -35,3 +37,11 @@ I have also implemented various algorithms, including:
 - Graph algorithms (e.g., Breadth-First Search, Depth-First Search)
 
 Similar to the data structures, each algorithm is implemented as a separate C file, accompanied by usage examples and explanations.
+
+## Acrostic Puzzle
+
+Here is implemented an automated solution to an acrostic puzzle game.
+
+## Simulation Example
+
+A program that simulates customer traffic for a buissness to verify how effective a single queue system for customers waiting is.
