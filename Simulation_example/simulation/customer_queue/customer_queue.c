@@ -13,6 +13,12 @@ struct customer {
 struct customer *head = NULL;
 struct customer *tail = NULL;
 
+/**
+ * duration: Generates a random duration time for customers added
+ *           to the queue.
+ * 
+ * Return: The duration time.
+*/
 int duration()
 {
     float p;
