@@ -17,16 +17,27 @@ int _Clock = 0;
 float tot_customers;
 float tot_wait;
 
+/**
+ * intialize: Initializes the random number generator.
+*/
 void initialize(void)
 {
     srand((unsigned) time(NULL));
 }
 
-int arrive(int minute, int customer)
+/**
+ * arrive: Simulates a pseudo random customer arrivals.
+ * 
+ * minute- The clock time when function is called.
+ * n_customer- The number of cusotmers.
+ * 
+ * Return: 0 if a customer has arrived, else 1.
+*/
+int arrive(int minute, int n_customer)
 {
     int t;
 
-    t = rand() % customer;
+    t = rand() % n_customer;
 
     //printf("\n%d\n", t);
 
@@ -42,6 +53,10 @@ void accum(int now, int time_arrived)
     tot_wait += ((float)now - (float)time_arrived);
 }
 
+/**
+ * print_totals: Prints the average wait time for customers.
+ * 
+*/
 void print_totals()
 {
     printf("%.0f customer%s waited an average of %.2f minutes\n",
@@ -49,6 +64,15 @@ void print_totals()
     
 }
 
+/**
+ * simulate: Runs the simulation.
+ * 
+ * close- the closing time of the buissiness.
+ * num_tellers- The number of tellers.
+ * num_customers- The number of customers.
+ * 
+ * Return: OK when terminated.
+*/
 int simulate(int close, int num_tellers, int num_customers)
 {
     int i;

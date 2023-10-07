@@ -82,7 +82,7 @@ int del_customer_q(int *trans_time, int *arrival_time)
 int queue_empty()
 {
     if(head == NULL)
-        return QUEUE_FULL;
+        return QUEUE_EMPTY;
     return
         OK;   
 }
