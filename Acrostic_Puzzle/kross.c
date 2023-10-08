@@ -51,10 +51,23 @@ struct wordlist {
 int main(int argc, char *argv[])
 {
     int i, j;
+    char *p;
     FILE *fp;
 
     if(argc != 2) {
-        fprintf(stderr, "Usage: %s puzzlefile\n", argv[0]);
+        fprintf(stderr, "Usage: %s <puzzlefile.krs>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    p = argv[1];
+
+    while(*p++ != '.')
+        ;
+    
+    if(strcmp(p, "krs") != 0) {
+        fprintf(stderr, "Wrong file extension. File name should have extension 'krs'.\n"
+                "Usage: %s <puzzlefile.krs>\n", argv[0]);
+        
         exit(EXIT_FAILURE);
     }
 
