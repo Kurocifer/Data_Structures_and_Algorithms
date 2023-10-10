@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+    /* Check file extension */
     p = argv[1];
 
     while(*p++ != '.')

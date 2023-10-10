@@ -6,14 +6,20 @@
 
 #define OPERAND 0
 #define OPERATOR 1
-#define END_ '?'
+#define END_ '~'
+#define MAX_BUFFER 100
 
 Stack s1, s2;
-int type_to_read, temps[20];
+int type_to_read;
+
+struct buffer {
+	tempbuf[MAX_BUFFER];
+	int type;
+}temp_buffer[MAX_BUFFER];
 
 
-int icp(int it);
-int isp(int it);
+int icp(int optr);
+int isp(int optr);
 int itop();
 int eval();
 int nextinput();
@@ -38,6 +44,12 @@ int main(void)
 
 }
 
+/**
+ * nextinput: Reads the next input from stdin one by one,
+ *            there by tokenizing the operation string.
+ * 
+ * REturn: Returns the a input just read
+*/
 int nextinput()
 {
 	int operand;
@@ -48,6 +60,8 @@ int nextinput()
 			type_to_read = OPERATOR;
 			return operand;
 		}
+
+		/* if the first thing read is a brace */
 		brace = getchar();
 		return brace;
 	}
@@ -57,7 +71,14 @@ int nextinput()
 	return operator;
 }
 
-int icp(int it)
+/**
+ * icp: Determines the precedence of incoming operators.
+ * 
+ * optr- The operator.
+ * 
+ * Return: Returns the precedence of the incoming operators.
+*/
+int icp(int optn)
 {
     switch(it) {
         case '(':
@@ -84,7 +105,14 @@ int icp(int it)
     }
 }
 
-int isp(int it)
+/**
+ * isp: This fuctions determines the in stack precedence of operators.
+ * 
+ * optm- The operator.
+ * 
+ * Return: Returns the operators in stack precedence.
+*/
+int isp(int optr)
 {
     switch(it) {
         case '(':
@@ -126,7 +154,7 @@ int itop()
 			case '(':
 				/* pop operator */
 				while( !empty(s1) && isp(top_of_stk(s1)) >= icp(item) )
-					temps[i++] = pop(s1);
+					temp_buffer.tempbuf[i++] = pop(s1);
 
 				/* push new operator onto stack */
 				push(s1, item);
