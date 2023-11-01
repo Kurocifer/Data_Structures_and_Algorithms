@@ -3,7 +3,7 @@
 #include "queue.h"
 
 /*NEXT: helps so that queue should rap arround when
-		q->rear == MAXQUEUE -1*/
+		q->rear == MAXQUEUE -1 */
 #define NEXT(x) ((x + 1) % MAXQUEUE)
 
 struct queue_type {
