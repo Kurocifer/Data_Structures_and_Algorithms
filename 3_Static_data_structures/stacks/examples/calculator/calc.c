@@ -13,7 +13,7 @@ Stack s1, s2;
 int type_to_read;
 
 struct buffer {
-	tempbuf[MAX_BUFFER];
+	int tempbuf[MAX_BUFFER];
 	int type;
 }temp_buffer[MAX_BUFFER];
 
@@ -50,7 +50,7 @@ int main(void)
  * 
  * REturn: Returns the a input just read
 */
-int nextinput()
+int nextinput(void)
 {
 	int operand;
 	char operator, brace;
@@ -139,7 +139,7 @@ int isp(int optr)
     }
 }
 
-int itop()
+int itop(void)
 {
 	int temp, item, i = 0;
 
@@ -180,7 +180,7 @@ int itop()
 	return i;
 }
 
-int eval()
+int eval(void)
 {
 	int temp, item, i = 0;
 
@@ -205,7 +205,10 @@ int eval()
 
 			case '/':
 				temp = pop(s2);
-				if(temp == 0)
+				if(temp == 0) {
+					fprintf(stderr, "Math Error: Division by zero\n");
+					exit(EXIT_FAILURE);
+				}
 				push( s2, (pop(s2) / temp) );
 				break;
 

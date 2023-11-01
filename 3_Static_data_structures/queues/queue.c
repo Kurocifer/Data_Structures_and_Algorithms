@@ -55,7 +55,7 @@ item_type cir_empty(Queue q)
 
 item_type queuesize(Queue q)
 {
-	return ( ((q->front - q->rear) + MAXQUEUE) % MAXQUEUE);
+	return ( ((q->rear - q->front) + MAXQUEUE) % MAXQUEUE);
 }
 
 bool qempty(Queue q)
